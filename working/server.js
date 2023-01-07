@@ -26,6 +26,22 @@ server.post('/neworder', express.json(), (request,response)=>{
 
 //Add the /update/:id code here!
 
+server.put('/update/:id', express.text({type: '*/*'}), (request,response)=>{
+  var items = orderData.orders
+
+  items.forEach(function(o) {
+    console.log(o)
+    if (o.id == request.params.id){
+      console.log('Modifying order!')
+      o.state = request.body;
+    }
+  });
+
+  fs.writeFileSync('orders.json', JSON.stringify(orderData));
+
+  response.send('Success');
+  console.log('Success');
+});
 
 //Add the /delete/:id code here!
 
